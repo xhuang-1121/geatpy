@@ -31,6 +31,27 @@ class C2_DTLZ2(ea.Problem): # 继承Problem父类
         Point, ans = ea.crtup(self.M, 10000) # 生成10000个在各目标的单位维度上均匀分布的参考点
         Point /= np.tile(np.sqrt(np.sum(Point**2, 1, keepdims = True)), (1, self.M))
         r = 0.4 if self.M == 3 else 0.5
-        referenceObjV = Point[np.where(np.min([np.min((Point-1)**2 + np.sum(Point**2, 1, keepdims = True) - Point**2-r**2, 1, keepdims = True), np.sum((Point-1/np.sqrt(self.M))**2, 1, keepdims = True) - r**2], 0) <= 0)[0], :]
-        return referenceObjV
+        return Point[
+            np.where(
+                np.min(
+                    [
+                        np.min(
+                            (Point - 1) ** 2
+                            + np.sum(Point**2, 1, keepdims=True)
+                            - Point**2
+                            - r**2,
+                            1,
+                            keepdims=True,
+                        ),
+                        np.sum(
+                            (Point - 1 / np.sqrt(self.M)) ** 2, 1, keepdims=True
+                        )
+                        - r**2,
+                    ],
+                    0,
+                )
+                <= 0
+            )[0],
+            :,
+        ]
     

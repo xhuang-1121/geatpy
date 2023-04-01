@@ -22,6 +22,5 @@ class Pathological(ea.Problem): # 继承Problem父类
         pop.ObjV = 0.5 + ((np.sin(np.sqrt(x1 ** 2 + x2 ** 2))) ** 2 - 0.5) / ((1 + 0.001 * (x1 ** 2 + x2 ** 2)) ** 2)
     
     def calReferObjV(self): # 设定目标数参考值（本问题目标函数参考值设定为理论最优值）
-        referenceObjV = np.array([[0]])
-        return referenceObjV
+        return np.array([[0]])
     

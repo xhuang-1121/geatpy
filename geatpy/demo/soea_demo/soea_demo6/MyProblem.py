@@ -32,18 +32,14 @@ class MyProblem(ea.Problem): # 继承Problem父类
         ubin = [1] * Dim # 决策变量上边界（0表示不包含该变量的上边界，1表示包含）
         # 调用父类构造方法完成实例化
         ea.Problem.__init__(self, name, M, maxormins, Dim, varTypes, lb, ub, lbin, ubin)
-        # 目标函数计算中用到的一些数据
-        fp = open('iris_train.data')
-        datas = []
-        data_targets = []
-        for line in fp.readlines():
-            line_data = line.strip('\n').split(',')
-            data = []
-            for i in line_data[0:4]:
-                data.append(float(i))
-            datas.append(data)
-            data_targets.append(line_data[4])
-        fp.close()
+        with open('iris_train.data') as fp:
+            datas = []
+            data_targets = []
+            for line in fp:
+                line_data = line.strip('\n').split(',')
+                data = [float(i) for i in line_data[:4]]
+                datas.append(data)
+                data_targets.append(line_data[4])
         self.data = preprocessing.scale(np.array(datas)) # 训练集的特征数据（归一化）
         self.dataTarget = np.array(data_targets)
         # 设置用多线程还是多进程
@@ -65,18 +61,14 @@ class MyProblem(ea.Problem): # 继承Problem父类
             pop.ObjV = np.array(result.get())
     
     def test(self, C, G): # 代入优化后的C、Gamma对测试集进行检验
-        # 读取测试集数据
-        fp = open('iris_test.data')
-        datas = []
-        data_targets = []
-        for line in fp.readlines():
-            line_data = line.strip('\n').split(',')
-            data = []
-            for i in line_data[0:4]:
-                data.append(float(i))
-            datas.append(data)
-            data_targets.append(line_data[4])
-        fp.close()
+        with open('iris_test.data') as fp:
+            datas = []
+            data_targets = []
+            for line in fp:
+                line_data = line.strip('\n').split(',')
+                data = [float(i) for i in line_data[:4]]
+                datas.append(data)
+                data_targets.append(line_data[4])
         data_test = preprocessing.scale(np.array(datas)) # 测试集的特征数据（归一化）
         dataTarget_test = np.array(data_targets) # 测试集的标签数据
         svc = svm.SVC(C=C, kernel='rbf', gamma=G).fit(self.data, self.dataTarget) # 创建分类器对象并用训练集的数据拟合分类器模型
@@ -92,5 +84,4 @@ def subAimFunc(args):
     G = Vars[i, 1]
     svc = svm.SVC(C=C, kernel='rbf', gamma=G).fit(data, dataTarget) # 创建分类器对象并用训练集的数据拟合分类器模型
     scores = cross_val_score(svc, data, dataTarget, cv=30) # 计算交叉验证的得分
-    ObjV_i = [scores.mean()] # 把交叉验证的平均得分作为目标函数值
-    return ObjV_i
+    return [scores.mean()]

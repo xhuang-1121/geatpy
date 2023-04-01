@@ -40,16 +40,12 @@ moea_NSGA2_DE_templet : class - 基于NSGA-II-DE算法的多目标进化算法�
     def __init__(self, problem, population):
         ea.MoeaAlgorithm.__init__(self, problem, population) # 先调用父类构造方法
         self.name = 'NSGA2-DE'
-        if self.problem.M < 10:
-            self.ndSort = ea.ndsortESS # 采用ENS_SS进行非支配排序
-        else:
-            self.ndSort = ea.ndsortTNS # 高维目标采用T_ENS进行非支配排序，速度一般会比ENS_SS要快
+        self.ndSort = ea.ndsortESS if self.problem.M < 10 else ea.ndsortTNS
         self.selFunc = 'tour' # 选择方式，采用锦标赛选择
-        if population.Encoding == 'RI':
-            self.mutOper = ea.Mutde(F = 0.5) # 生成差分变异算子对象
-            self.recOper = ea.Xovbd(XOVR = 0.5, Half = True) # 生成二项式分布交叉算子对象，这里的XOVR即为DE中的Cr
-        else:
+        if population.Encoding != 'RI':
             raise RuntimeError('编码方式必须为''RI''.')
+        self.mutOper = ea.Mutde(F = 0.5) # 生成差分变异算子对象
+        self.recOper = ea.Xovbd(XOVR = 0.5, Half = True) # 生成二项式分布交叉算子对象，这里的XOVR即为DE中的Cr
     
     def reinsertion(self, population, offspring, NUM):
         

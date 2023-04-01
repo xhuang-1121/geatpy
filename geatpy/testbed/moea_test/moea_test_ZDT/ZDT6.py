@@ -28,6 +28,5 @@ class ZDT6(ea.Problem): # 继承Problem父类
         N = 10000 # 生成10000个参考点
         ObjV1 = np.linspace(0.280775, 1, N)
         ObjV2 = 1 - ObjV1 ** 2;
-        referenceObjV = np.array([ObjV1, ObjV2]).T
-        return referenceObjV
+        return np.array([ObjV1, ObjV2]).T
     

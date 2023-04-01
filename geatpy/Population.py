@@ -112,10 +112,10 @@ Population : class - 种群类
         """
         描述: 种群染色体解码。
         """
-    
+
         if self.Encoding == 'BG': # 此时Field实际上为FieldD
             Phen = ea.bs2ri(self.Chrom, self.Field) # 把二进制转化为实整数
-        elif self.Encoding == 'RI' or self.Encoding == 'P':
+        elif self.Encoding in ['RI', 'P']:
             Phen = self.Chrom.copy()
         else:
             raise RuntimeError('error in Population.decoding: Encoding must be ''BG'' or ''RI'' or ''P''. (编码设置有误，解码时Encoding必须为''BG'', ''RI'' 或 ''P''。)')
@@ -147,9 +147,9 @@ Population : class - 种群类
         
         if self.Encoding is None:
             NewChrom = None
+        elif self.Chrom is None:
+            raise RuntimeError('error in Population: Chrom is None. (种群染色体矩阵未初始化。)')
         else:
-            if self.Chrom is None:
-                raise RuntimeError('error in Population: Chrom is None. (种群染色体矩阵未初始化。)')
             NewChrom = self.Chrom[index]
         NewFitnV = self.FitnV[index]
         NIND = NewFitnV.shape[0]
@@ -171,9 +171,9 @@ Population : class - 种群类
         shuff = np.argsort(np.random.rand(self.sizes))
         if self.Encoding is None:
             self.Chrom = None
+        elif self.Chrom is None:
+            raise RuntimeError('error in Population: Chrom is None. (种群染色体矩阵未初始化。)')
         else:
-            if self.Chrom is None:
-                raise RuntimeError('error in Population: Chrom is None. (种群染色体矩阵未初始化。)')
             self.Chrom = self.Chrom[shuff, :]
         self.ObjV = self.ObjV[shuff, :] if self.ObjV is not None else self.ObjV
         self.FitnV = self.FitnV[shuff]

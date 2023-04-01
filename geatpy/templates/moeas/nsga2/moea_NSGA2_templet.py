@@ -37,10 +37,7 @@ moea_NSGA2_templet : class - 多目标进化NSGA-II算法模板
         if str(type(population)) != "<class 'Population.Population'>":
             raise RuntimeError('传入的种群对象必须为Population类型')
         self.name = 'NSGA2'
-        if self.problem.M < 10:
-            self.ndSort = ea.ndsortESS # 采用ENS_SS进行非支配排序
-        else:
-            self.ndSort = ea.ndsortTNS # 高维目标采用T_ENS进行非支配排序，速度一般会比ENS_SS要快
+        self.ndSort = ea.ndsortESS if self.problem.M < 10 else ea.ndsortTNS
         self.selFunc = 'tour' # 选择方式，采用锦标赛选择
         if population.Encoding == 'P':
             self.recOper = ea.Xovpmx(XOVR = 1) # 生成部分匹配交叉算子对象

@@ -120,12 +120,10 @@ class MoeaAlgorithm(Algorithm): # 多目标优化算法模板父类
         
     def terminated(self, population): # 判断是终止进化，population为传入的种群对象
         self.stat(population) # 进行统计分析，更新进化记录器
-        # 判断是否终止进化，由于代数是从0数起，因此在比较currentGen和MAXGEN时需要对currentGen加1
         if self.currentGen + 1 >= self.MAXGEN or self.forgetCount >= self.maxForgetCount:
             return True
-        else:
-            self.currentGen += 1 # 进化代数+1
-            return False
+        self.currentGen += 1 # 进化代数+1
+        return False
     
     def finishing(self, population): # 进化完成后调用的函数
         # 得到非支配种群
@@ -133,9 +131,8 @@ class MoeaAlgorithm(Algorithm): # 多目标优化算法模板父类
         NDSet = population[np.where(levels == 1)[0]] # 只保留种群中的非支配个体，形成一个非支配种群
         NDSet = NDSet[np.where(np.all(NDSet.CV <= 0, 1))[0]] # 最后要彻底排除非可行解
         self.passTime += time.time() - self.timeSlot # 更新用时记录
-        # 绘图
         if self.drawing != 0:
-            if NDSet.ObjV.shape[1] == 2 or NDSet.ObjV.shape[1] == 3:
+            if NDSet.ObjV.shape[1] in [2, 3]:
                 ea.moeaplot(NDSet.ObjV, 'Pareto Front', saveFlag = True, gridFlag = True)
             else:
                 ea.moeaplot(NDSet.ObjV, 'Value Path', saveFlag = True, gridFlag = False)
@@ -206,20 +203,18 @@ class SoeaAlgorithm(Algorithm): # 单目标优化算法模板父类
             self.forgetCount += 1 # “遗忘策略”计数器加1
     
     def terminated(self, population):
-        
+
         """
         描述:
             该函数用于判断是否应该终止进化，population为传入的种群
         """
         
         self.stat(population) # 分析记录当代种群的数据
-        # 判断是否终止进化，由于代数是从0数起，因此在比较currentGen和MAXGEN时需要对currentGen加1
         if self.currentGen + 1 >= self.MAXGEN or self.forgetCount >= self.maxForgetCount or self.trappedCount >= self.maxTrappedCount:
             return True
-        else:
-            self.preObjV = self.obj_trace[self.currentGen, 1] # 更新“前代最优目标函数值记录器”
-            self.currentGen += 1 # 进化代数+1
-            return False
+        self.preObjV = self.obj_trace[self.currentGen, 1] # 更新“前代最优目标函数值记录器”
+        self.currentGen += 1 # 进化代数+1
+        return False
 
     def finishing(self, population): # 进化完成后调用的函数
         # 处理进化记录器

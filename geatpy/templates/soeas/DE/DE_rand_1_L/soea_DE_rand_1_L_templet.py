@@ -46,11 +46,10 @@ soea_DE_rand_1_L_templet : class - 差分进化DE/rand/1/L算法模板
             raise RuntimeError('传入的种群对象必须为Population类型')
         self.name = 'DE_rand_1_L'
         self.selFunc = 'rws' # 基向量的选择方式，采用轮盘赌选择
-        if population.Encoding == 'RI':
-            self.mutOper = ea.Mutde(F = 0.5) # 生成差分变异算子对象
-            self.recOper = ea.Xovexp(XOVR = 0.5, Half = True) # 生成指数交叉算子对象，这里的XOVR即为DE中的Cr
-        else:
+        if population.Encoding != 'RI':
             raise RuntimeError('编码方式必须为''RI''.')
+        self.mutOper = ea.Mutde(F = 0.5) # 生成差分变异算子对象
+        self.recOper = ea.Xovexp(XOVR = 0.5, Half = True) # 生成指数交叉算子对象，这里的XOVR即为DE中的Cr
         
     def run(self, prophetPop = None): # prophetPop为先知种群（即包含先验知识的种群）
         #==========================初始化配置===========================

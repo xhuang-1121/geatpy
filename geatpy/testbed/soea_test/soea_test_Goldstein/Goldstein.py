@@ -23,6 +23,5 @@ class Goldstein(ea.Problem): # 继承Problem父类
         pop.ObjV = (1 + (x + y + 1) ** 2 * (19 - 14 * x + 13 * x ** 2 - 14 * y + 6 * x * y + 3 * y ** 2)) * (30 + (2 * x - 3 * y) ** 2 * (18 - 32 * x + 12 * x ** 2 + 48 * y - 36 * x * y + 27 * y **2))
     
     def calReferObjV(self): # 设定目标数参考值（本问题目标函数参考值设定为理论最优值）
-        referenceObjV = np.array([[3]])
-        return referenceObjV
+        return np.array([[3]])
     

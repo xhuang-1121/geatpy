@@ -37,5 +37,4 @@ class MyProblem(ea.Problem): # 继承Problem父类
                         x1 + 2*x3 - 2,
                         np.abs(x1 + x2 + x3 - 1)])
     def calReferObjV(self): # 设定目标数参考值（本问题目标函数参考值设定为理论最优值）
-        referenceObjV = np.array([[2.5]])
-        return referenceObjV
+        return np.array([[2.5]])

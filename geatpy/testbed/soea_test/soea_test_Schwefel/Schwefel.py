@@ -20,7 +20,6 @@ class Schwefel(ea.Problem): # 继承Problem父类
         pop.ObjV = np.sum(-x * np.sin(np.sqrt(np.abs(x))), 1, keepdims = True)
     
     def calReferObjV(self): # 设定目标数参考值（本问题目标函数参考值设定为理论最优值）
-        referenceObjV = np.array([[-self.Dim * 418.9829]])
-        return referenceObjV
+        return np.array([[-self.Dim * 418.9829]])
     
     

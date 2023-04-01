@@ -25,6 +25,7 @@ class DTLZ2(ea.Problem): # 继承Problem父类
     
     def calReferObjV(self): # 设定目标数参考值（本问题目标函数参考值设定为理论最优值，即“真实帕累托前沿点”）
         uniformPoint, ans = ea.crtup(self.M, 10000) # 生成10000个在各目标的单位维度上均匀分布的参考点
-        referenceObjV = uniformPoint / np.tile(np.sqrt(np.sum(uniformPoint ** 2, 1, keepdims = True)), (1, self.M))
-        return referenceObjV
+        return uniformPoint / np.tile(
+            np.sqrt(np.sum(uniformPoint**2, 1, keepdims=True)), (1, self.M)
+        )
     

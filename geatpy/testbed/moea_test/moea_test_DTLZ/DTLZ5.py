@@ -31,6 +31,8 @@ class DTLZ5(ea.Problem): # 继承Problem父类
         P = np.vstack([np.linspace(0,1,N), np.linspace(1,0,N)]).T
         P = P / np.tile(np.sqrt(np.sum(P**2, 1, keepdims = True)), (1, P.shape[1]))
         P = np.hstack([P[:, np.zeros(self.M-2, dtype = np.int)], P])
-        referenceObjV = P / np.sqrt(2) ** np.tile(np.hstack([self.M - 2, np.linspace(self.M - 2, 0, self.M - 1)]), (P.shape[0], 1))
-        return referenceObjV
+        return P / np.sqrt(2) ** np.tile(
+            np.hstack([self.M - 2, np.linspace(self.M - 2, 0, self.M - 1)]),
+            (P.shape[0], 1),
+        )
     

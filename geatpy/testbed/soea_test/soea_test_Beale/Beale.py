@@ -23,6 +23,5 @@ class Beale(ea.Problem): # 继承Problem父类
         pop.ObjV = (1.5 - x + x * y) ** 2 + (2.25- x + x * y **2) **2 + (2.625 - x + x * y ** 3) ** 2
     
     def calReferObjV(self): # 设定目标数参考值（本问题目标函数参考值设定为理论最优值）
-        referenceObjV = np.array([[0]])
-        return referenceObjV
+        return np.array([[0]])
     

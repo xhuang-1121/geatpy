@@ -22,6 +22,5 @@ class Ackley(ea.Problem): # 继承Problem父类
                   np.exp(1/n * np.sum(np.cos(2 * np.pi * x), 1)) + np.e + 20]).T
     
     def calReferObjV(self): # 设定目标数参考值（本问题目标函数参考值设定为理论最优值）
-        referenceObjV = np.array([[0]])
-        return referenceObjV
+        return np.array([[0]])
     

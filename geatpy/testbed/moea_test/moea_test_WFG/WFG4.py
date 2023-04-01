@@ -52,8 +52,12 @@ class WFG4(ea.Problem): # 继承Problem父类
         N = 10000 # 设置所要生成的全局最优解的个数
         Point, num = ea.crtup(self.M, N) # 生成N个在各目标的单位维度上均匀分布的参考点
         Point = Point / np.tile(np.sqrt(np.array([np.sum(Point**2, 1)]).T), (1, self.M))
-        referenceObjV = np.tile(np.array([list(range(2, 2 * self.M + 1, 2))]), (Point.shape[0], 1)) * Point
-        return referenceObjV
+        return (
+            np.tile(
+                np.array([list(range(2, 2 * self.M + 1, 2))]), (Point.shape[0], 1)
+            )
+            * Point
+        )
 
 def s_multi(x, A, B, C):
     return (1 + np.cos((4 * A + 2) * np.pi *(0.5 - np.abs(x - C) / 2 / (np.floor(C - x) + C))) + 4 * B * (np.abs(x - C) / 2 / (np.floor(C - x) + C))**2) / (B + 2)
@@ -62,5 +66,4 @@ def concave(x):
     return np.fliplr(np.cumprod(np.hstack([np.ones((x.shape[0], 1)), np.sin(x[:,:-1] * np.pi / 2)]), 1)) * np.hstack([np.ones((x.shape[0], 1)), np.cos(x[:, list(range(x.shape[1] - 1 - 1, -1, -1))] * np.pi / 2)])
 
 def r_sum(x, w):
-    Output = np.sum(x * np.tile(w, (x.shape[0], 1)), 1) / np.sum(w)
-    return Output
+    return np.sum(x * np.tile(w, (x.shape[0], 1)), 1) / np.sum(w)

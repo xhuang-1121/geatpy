@@ -11,9 +11,7 @@ class MyProblem(ea.Problem): # 继承Problem父类
         name = 'MyProblem' # 初始化name（函数名称，可以随意设置）
         # 定义需要匹配的句子
         strs = 'Tom is a little boy, isn\'t he? Yes he is, he is a good and smart child and he is always ready to help others, all in all we all like him very much.'
-        self.words = []
-        for c in strs:
-            self.words.append(ord(c)) # 把字符串转成ASCII码
+        self.words = [ord(c) for c in strs]
         M = 1 # 初始化M（目标维数）
         maxormins = [1] # 初始化maxormins（目标最小最大化标记列表，1：最小化该目标；-1：最大化该目标）
         Dim = len(self.words) # 初始化Dim（决策变量维数）

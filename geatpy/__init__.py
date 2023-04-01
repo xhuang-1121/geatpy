@@ -4,13 +4,14 @@ geatpy  -  import all libs of geatpy
 
 """
 
+
 import sys
 
 __author__ = "Geatpy Team"
 __version__ = "2.4.0"
 
 # import the core
-lib_path = __file__[:-11] + 'core/'
+lib_path = f'{__file__[:-11]}core/'
 if lib_path not in sys.path:
     sys.path.append(lib_path)
 from awGA import awGA
