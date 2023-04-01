@@ -85,8 +85,8 @@ soea_multi_SEGA_templet : class - Multi-population Strengthen Elitist GA templet
         计算种群个体适应度，population为种群列表
         该函数直接对输入参数population中的适应度信息进行修改，因此函数不用返回任何参数。
         """
-        ObjV = np.vstack(list(pop.ObjV for pop in population))
-        CV = np.vstack(list(pop.CV for pop in population))
+        ObjV = np.vstack([pop.ObjV for pop in population])
+        CV = np.vstack([pop.CV for pop in population])
         FitnV = ea.scaling(self.problem.maxormins * ObjV, CV) # 统一计算适应度
         # 为各个种群分配适应度
         idx = 0
@@ -95,7 +95,7 @@ soea_multi_SEGA_templet : class - Multi-population Strengthen Elitist GA templet
             idx += population[i].sizes
     
     def EnvSelection(self, population, NUM): # 环境选择，选择个体保留到下一代
-        FitnVs = list(pop.FitnV for pop in population)
+        FitnVs = [pop.FitnV for pop in population]
         NewChrIxs = ea.mselecting('dup', FitnVs, NUM) # 采用基于适应度排序的直接复制选择
         for i in range(self.PopNum):
             population[i] = (population[i])[NewChrIxs[i]]

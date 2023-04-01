@@ -20,6 +20,5 @@ class Rastrigrin(ea.Problem): # 继承Problem父类
         pop.ObjV = np.sum((x ** 2 - 10 * np.cos(2 * np.pi * x) + 10), 1, keepdims = True) # 调整f使之符合Geatpy的目标函数的数据结构
     
     def calReferObjV(self): # 设定目标数参考值（本问题目标函数参考值设定为理论最优值）
-        referenceObjV = np.array([[0]])
-        return referenceObjV
+        return np.array([[0]])
     

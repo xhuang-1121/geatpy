@@ -32,5 +32,7 @@ class CF2(ea.Problem): # 继承Problem父类
         ObjV1 = np.linspace(0, 1, N)
         ObjV2 = 1 - np.sqrt(ObjV1)
         referenceObjV = np.array([ObjV1, ObjV2]).T
-        deleteIdx = np.where((0 < ObjV1) & (ObjV1 < 1/16) | (1/4 < ObjV1) & (ObjV1 < 9/16))[0]
+        deleteIdx = np.where(
+            (ObjV1 > 0) & (ObjV1 < 1 / 16) | (1 / 4 < ObjV1) & (ObjV1 < 9 / 16)
+        )[0]
         return np.delete(referenceObjV, deleteIdx, 0)

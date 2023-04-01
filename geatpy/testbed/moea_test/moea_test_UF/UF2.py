@@ -31,5 +31,4 @@ class UF2(ea.Problem): # 继承Problem父类
         N = 10000 # 生成10000个参考点
         ObjV1 = np.linspace(0, 1, N)
         ObjV2 = 1 - np.sqrt(ObjV1)
-        referenceObjV = np.array([ObjV1, ObjV2]).T
-        return referenceObjV
+        return np.array([ObjV1, ObjV2]).T

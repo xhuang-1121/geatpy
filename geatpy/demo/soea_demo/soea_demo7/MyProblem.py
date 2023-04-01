@@ -75,5 +75,4 @@ def subAimFunc(args): # 单独计算单个个体的目标函数值
     G = Vars[i, 1]
     svc = svm.SVC(C=C, kernel='rbf', gamma=G).fit(data, dataTarget) # 创建分类器对象并用训练集的数据拟合分类器模型
     scores = cross_val_score(svc, data, dataTarget, cv=20) # 计算交叉验证的得分
-    ObjV_i = [scores.mean()] # 把交叉验证的平均得分作为目标函数值
-    return ObjV_i
+    return [scores.mean()]

@@ -44,16 +44,12 @@ moea_NSGA3_DE_templet : class - 多目标进化优化NSGA-III-DE算法模板
         if str(type(population)) != "<class 'Population.Population'>":
             raise RuntimeError('传入的种群对象必须为Population类型')
         self.name = 'NSGA3-DE'
-        if self.problem.M < 10:
-            self.ndSort = ea.ndsortESS # 采用ENS_SS进行非支配排序
-        else:
-            self.ndSort = ea.ndsortTNS # 高维目标采用T_ENS进行非支配排序，速度一般会比ENS_SS要快
+        self.ndSort = ea.ndsortESS if self.problem.M < 10 else ea.ndsortTNS
         self.selFunc = 'tour' # 基向量选择方式，采用锦标赛选择
-        if population.Encoding == 'RI':
-            self.mutOper = ea.Mutde(F = 0.5) # 生成差分变异算子对象
-            self.recOper = ea.Xovbd(XOVR = 0.5, Half = True) # 生成二项式分布交叉算子对象，这里的XOVR即为DE中的Cr
-        else:
+        if population.Encoding != 'RI':
             raise RuntimeError('编码方式必须为''RI''.')
+        self.mutOper = ea.Mutde(F = 0.5) # 生成差分变异算子对象
+        self.recOper = ea.Xovbd(XOVR = 0.5, Half = True) # 生成二项式分布交叉算子对象，这里的XOVR即为DE中的Cr
         self.F = 0.5 # 差分变异缩放因子（可以设置为一个数也可以设置为一个列数与种群规模数目相等的列向量）
         self.pc = 0.2 # 交叉概率
     

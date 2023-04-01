@@ -24,11 +24,11 @@ if __name__ == '__main__':
     # 输出结果
     best_gen = np.argmin(problem.maxormins * obj_trace[:, 1]) # 记录最优种群个体是在哪一代
     best_ObjV = obj_trace[best_gen, 1]
-    print('最优的目标函数值为：%s'%(best_ObjV))
+    print(f'最优的目标函数值为：{best_ObjV}')
     print('最优的控制变量值为：')
     for i in range(var_trace.shape[1]):
         print(var_trace[best_gen, i])
-    print('有效进化代数：%s'%(obj_trace.shape[0]))
-    print('最优的一代是第 %s 代'%(best_gen + 1))
-    print('评价次数：%s'%(myAlgorithm.evalsNum))
-    print('时间已过 %s 秒'%(myAlgorithm.passTime))
+    print(f'有效进化代数：{obj_trace.shape[0]}')
+    print(f'最优的一代是第 {best_gen + 1} 代')
+    print(f'评价次数：{myAlgorithm.evalsNum}')
+    print(f'时间已过 {myAlgorithm.passTime} 秒')

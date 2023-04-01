@@ -23,6 +23,6 @@ if __name__ == '__main__':
     NDSet = myAlgorithm.run(prophetPop)   # 插入“先知种群”，执行算法模板，得到最终的帕累托最优解集
     NDSet.save()                # 把结果保存到文件中
     # 输出
-    print('用时：%s 秒'%(myAlgorithm.passTime))
-    print('非支配个体数：%s 个'%(NDSet.sizes))
-    print('单位时间找到帕累托前沿点个数：%s 个'%(int(NDSet.sizes // myAlgorithm.passTime)))
+    print(f'用时：{myAlgorithm.passTime} 秒')
+    print(f'非支配个体数：{NDSet.sizes} 个')
+    print(f'单位时间找到帕累托前沿点个数：{int(NDSet.sizes // myAlgorithm.passTime)} 个')

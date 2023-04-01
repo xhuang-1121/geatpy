@@ -73,15 +73,22 @@ Problem : Class - 问题类
         
         if os.path.exists('referenceObjV') == False:
             os.makedirs('referenceObjV')
-        if reCalculate == False:
-            # 尝试读取数据
-            if os.path.exists('referenceObjV/' + self.name + '_M' + str(self.M) + '_D' + str(self.Dim) + '.csv'):
-                return np.loadtxt('referenceObjV/' + self.name + '_M' + str(self.M) + '_D' + str(self.Dim) + '.csv', delimiter=',')
+        if reCalculate == False and os.path.exists(
+            f'referenceObjV/{self.name}_M{str(self.M)}_D{str(self.Dim)}.csv'
+        ):
+            return np.loadtxt(
+                f'referenceObjV/{self.name}_M{str(self.M)}_D{str(self.Dim)}.csv',
+                delimiter=',',
+            )
         # 若找不到数据，则调用calReferObjV()计算目标函数参考值
         referenceObjV = self.calReferObjV()
         if referenceObjV is not None:
             # 保存数据
-            np.savetxt('referenceObjV/' + self.name + '_M' + str(self.M) + '_D' + str(self.Dim) + '.csv', referenceObjV, delimiter=',')
+            np.savetxt(
+                f'referenceObjV/{self.name}_M{str(self.M)}_D{str(self.Dim)}.csv',
+                referenceObjV,
+                delimiter=',',
+            )
         else:
             print('未找到目标函数参考值数据！')
         return referenceObjV

@@ -40,10 +40,7 @@ moea_psy_NSGA3_templet : class - 多染色体的多目标进化优化NSGA-III算
         if str(type(population)) != "<class 'PsyPopulation.PsyPopulation'>":
             raise RuntimeError('传入的种群对象必须为PsyPopulation类型')
         self.name = 'psy-NSGA3'
-        if self.problem.M < 10:
-            self.ndSort = ea.ndsortESS # 采用ENS_SS进行非支配排序
-        else:
-            self.ndSort = ea.ndsortTNS # 高维目标采用T_ENS进行非支配排序，速度一般会比ENS_SS要快
+        self.ndSort = ea.ndsortESS if self.problem.M < 10 else ea.ndsortTNS
         self.selFunc = 'tour' # 选择方式，采用锦标赛选择
         # 由于有多个染色体，因此需要用多个重组和变异算子
         self.recOpers = []

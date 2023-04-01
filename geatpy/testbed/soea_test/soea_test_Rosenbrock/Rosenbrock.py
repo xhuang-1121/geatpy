@@ -23,6 +23,5 @@ class Rosenbrock(ea.Problem): # 继承Problem父类
         pop.ObjV = np.array([np.sum((100*(Mat2 - Mat1**2)**2 + (1 - Mat1)**2).T, 0)]).T
 
     def calReferObjV(self): # 设定目标数参考值（本问题目标函数参考值设定为理论最优值）
-        referenceObjV = np.array([[0]])
-        return referenceObjV
+        return np.array([[0]])
     

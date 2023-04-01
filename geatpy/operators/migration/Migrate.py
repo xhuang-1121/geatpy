@@ -16,15 +16,16 @@ class Migrate:
     def do(self, populations, *args): # 执行变异，populations为存储着种群类对象的列表
         if type(populations) != list:
             raise RuntimeError('error in Migrate: The populations must be a list. (输入参数populations必须是list类型。)')
-        
-        PopSizes = list(pop.sizes for pop in populations)
-        FitnVs = list(pop.FitnV for pop in populations)
+
+        PopSizes = [pop.sizes for pop in populations]
+        FitnVs = [pop.FitnV for pop in populations]
         # 调用种群迁移算子进行种群个体迁移
         [Aborigines, Foreigners, FromPlaces] = migrate(PopSizes, self.MIGR, self.Structure, self.Select, self.Replacement, FitnVs)
-        NewPopulations = []
-        for i in range(len(populations)): # 更新迁移个体后的种群
-            NewPopulations.append((populations[i])[Aborigines[i]] + (populations[FromPlaces[i]])[Foreigners[i]])
-        return NewPopulations
+        return [
+            (populations[i])[Aborigines[i]]
+            + (populations[FromPlaces[i]])[Foreigners[i]]
+            for i in range(len(populations))
+        ]
     
     def getHelp(self): # 查看内核中的变异算子的API文档
         help(migrate)

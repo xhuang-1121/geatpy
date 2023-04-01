@@ -54,8 +54,12 @@ class WFG3(ea.Problem): # 继承Problem父类
         N = 10000 # 设置所要生成的全局最优解的个数
         X = np.hstack([np.array([np.linspace(0, 1, N)]).T, np.zeros((N, self.M - 2)) + 0.5, np.zeros((N, 1))])
         Point = linear(X)
-        referenceObjV = np.tile(np.array([list(range(2, 2 * self.M + 1, 2))]), (Point.shape[0], 1)) * Point
-        return referenceObjV
+        return (
+            np.tile(
+                np.array([list(range(2, 2 * self.M + 1, 2))]), (Point.shape[0], 1)
+            )
+            * Point
+        )
 
 def linear(x):
     return np.fliplr(np.cumprod(np.hstack([np.ones((x.shape[0], 1)), x[:,:-1]]), 1)) * np.hstack([np.ones((x.shape[0], 1)), 1 - x[:, list(range(x.shape[1] - 1 - 1, -1, -1))]])
@@ -64,5 +68,4 @@ def s_linear(x, A):
     return np.abs(x - A) / np.abs(np.floor(A - x) + A)
     
 def r_sum(x, w):
-    Output = np.sum(x * np.tile(w, (x.shape[0], 1)), 1) / np.sum(w)
-    return Output
+    return np.sum(x * np.tile(w, (x.shape[0], 1)), 1) / np.sum(w)

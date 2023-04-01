@@ -23,7 +23,7 @@ class BNH(ea.Problem): # 继承Problem父类
         f1 = 4*x1**2 + 4*x2**2
         f2 = (x1 - 5)**2 + (x2 - 5)**2
         # 采用罚函数法处理约束
-        exIdx1 = np.where((x1 - 5)**2 + x2**2 - 25 > 0)[0]
+        exIdx1 = np.where((x1 - 5)**2 + x2**2 > 25)[0]
         exIdx2 = np.where(-(x1 - 8)**2 - (x2 - 3)**2 + 7.7 > 0)[0]
         exIdx = np.unique(np.hstack([exIdx1, exIdx2]))
         alpha = 2 # 惩罚缩放因子
@@ -33,7 +33,7 @@ class BNH(ea.Problem): # 继承Problem父类
 #        # 采用可行性法则处理约束
 #        pop.CV = np.hstack([(x1 - 5)**2 + x2**2 - 25,
 #                           -(x1 - 8)**2 - (x2 - 3)**2 + 7.7])
-        
+
         pop.ObjV = np.hstack([f1, f2]) # 把求得的目标函数值赋值给种群pop的ObjV
     
     def calReferObjV(self): # 设定目标数参考值（本问题目标函数参考值设定为理论最优值，即“真实帕累托前沿点”）

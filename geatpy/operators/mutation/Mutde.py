@@ -13,10 +13,7 @@ class Mutde(Mutation):
         self.Loop = Loop # 表示是否采用循环的方式处理超出边界的变异结果
     
     def do(self, Encoding, OldChrom, FieldDR, *args): # 执行变异
-        if len(args) != 0:
-            XrList = args[0]
-        else:
-            XrList = None
+        XrList = args[0] if args else None
         return mutde(Encoding, OldChrom, FieldDR, XrList, self.F, self.Loop)
     
     def getHelp(self): # 查看内核中的变异算子的API文档

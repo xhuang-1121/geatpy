@@ -43,11 +43,10 @@ soea_DE_targetToBest_1_L_templet : class - 差分进化DE/target-to-best/1/L算�
         if str(type(population)) != "<class 'Population.Population'>":
             raise RuntimeError('传入的种群对象必须为Population类型')
         self.name = 'DE/rand/1/bin'
-        if population.Encoding == 'RI':
-            self.mutOper = ea.Mutde(F = 0.5) # 生成差分变异算子对象
-            self.recOper = ea.Xovexp(XOVR = 0.5, Half = True) # 生成指数交叉算子对象，这里的XOVR即为DE中的Cr
-        else:
+        if population.Encoding != 'RI':
             raise RuntimeError('编码方式必须为''RI''.')
+        self.mutOper = ea.Mutde(F = 0.5) # 生成差分变异算子对象
+        self.recOper = ea.Xovexp(XOVR = 0.5, Half = True) # 生成指数交叉算子对象，这里的XOVR即为DE中的Cr
         self.k = 0.5 # target-to-best中的参数k
         
     def run(self, prophetPop = None): # prophetPop为先知种群（即包含先验知识的种群）

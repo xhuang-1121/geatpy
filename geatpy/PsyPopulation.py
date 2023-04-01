@@ -121,7 +121,7 @@ PsyPopulation : class - 多染色体种群类(Popysomy Population)
         for i in range(self.ChromNum):
             if self.Encodings[i] == 'BG': # 此时Field实际上为FieldD
                 tempPhen = ea.bs2ri(self.Chroms[i], self.Fields[i]) # 把二进制转化为实整数
-            elif self.Encodings[i] == 'RI' or self.Encodings[i] == 'P':
+            elif self.Encodings[i] in ['RI', 'P']:
                 tempPhen = self.Chroms[i].copy()
             else:
                 raise RuntimeError('error in PsyPopulation.decoding: Encoding must be ''BG'' or ''RI'' or ''P''. (编码设置有误，Encoding必须为''BG'', ''RI'' 或 ''P''。)')
@@ -266,10 +266,10 @@ PsyPopulation : class - 多染色体种群类(Popysomy Population)
         if os.path.exists('Result') == False:
             os.makedirs('Result')
         for i in range(self.ChromNum):
-            with open('Result/Encodings' + str(i) + '.txt','w') as file:
+            with open(f'Result/Encodings{str(i)}.txt', 'w') as file:
                 file.write(str(self.Encodings[i]))
-            np.savetxt('Result/Fields' + str(i) + '.csv', self.Fields[i], delimiter=',')
-            np.savetxt('Result/Chroms' + str(i) + '.csv', self.Chroms[i], delimiter=',')
+            np.savetxt(f'Result/Fields{str(i)}.csv', self.Fields[i], delimiter=',')
+            np.savetxt(f'Result/Chroms{str(i)}.csv', self.Chroms[i], delimiter=',')
         np.savetxt('Result/ObjV.csv', self.ObjV, delimiter=',')
         np.savetxt('Result/FitnV.csv', self.FitnV, delimiter=',')
         np.savetxt('Result/CV.csv', self.CV, delimiter=',')

@@ -67,11 +67,10 @@ class WFG1(ea.Problem): # 继承Problem父类
         for i in range(num):
             E = np.abs(temp[i] * (1 - np.cos(np.pi / 2 * a)) - 1 + a + np.cos(10 * np.pi * a + np.pi / 2) / 10 / np.pi)
             rank = np.argsort(E, kind = 'mergesort')
-            x[i, 0] = a[np.min(rank[0: 10])]
+            x[i, 0] = a[np.min(rank[:10])]
         Point = convex(x)
         Point[:, [M - 1]] = mixed(x)
-        referenceObjV = np.tile(np.array([list(range(2, 2 * self.M + 1, 2))]), (num, 1)) * Point
-        return referenceObjV
+        return np.tile(np.array([list(range(2, 2 * self.M + 1, 2))]), (num, 1)) * Point
 
 def convex(x):
     return np.fliplr(np.cumprod(np.hstack([np.ones((x.shape[0], 1)), 1 - np.cos(x[:,:-1] * np.pi / 2)]), 1)) * np.hstack([np.ones((x.shape[0], 1)), 1 - np.sin(x[:, list(range(x.shape[1] - 1 - 1, -1, -1))] * np.pi / 2)])
@@ -90,5 +89,4 @@ def b_poly(x, a):
     return np.sign(x) * np.abs(x)**a
     
 def r_sum(x, w):
-    Output = np.sum(x * np.tile(w, (x.shape[0], 1)), 1) / np.sum(w)
-    return Output
+    return np.sum(x * np.tile(w, (x.shape[0], 1)), 1) / np.sum(w)

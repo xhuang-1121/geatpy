@@ -30,6 +30,5 @@ class ZDT5(ea.Problem): # 继承Problem父类
     def calReferObjV(self): # 设定目标数参考值（本问题目标函数参考值设定为理论最优值，即“真实帕累托前沿点”）
         ObjV1 = np.array(range(1,32))
         ObjV2 = (self.Dim + 39) / 5 / ObjV1
-        referenceObjV = np.array([ObjV1, ObjV2]).T
-        return referenceObjV
+        return np.array([ObjV1, ObjV2]).T
     

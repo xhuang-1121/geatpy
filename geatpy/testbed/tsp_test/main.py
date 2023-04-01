@@ -22,16 +22,16 @@ if __name__ == '__main__':
     # 输出结果
     best_gen = np.argmin(obj_trace[:, 1]) # 记录最优种群是在哪一代
     best_ObjV = np.min(obj_trace[:, 1])
-    print('最短路程为：%s'%(best_ObjV))
+    print(f'最短路程为：{best_ObjV}')
     print('最佳路线为：')
     best_journey = np.hstack([var_trace[best_gen, :], var_trace[best_gen, 0]])
     for i in range(len(best_journey)):
         print(int(best_journey[i]), end = ' ')
     print()
-    print('有效进化代数：%s'%(obj_trace.shape[0]))
-    print('最优的一代是第 %s 代'%(best_gen + 1))
-    print('评价次数：%s'%(myAlgorithm.evalsNum))
-    print('时间已过 %s 秒'%(myAlgorithm.passTime))
+    print(f'有效进化代数：{obj_trace.shape[0]}')
+    print(f'最优的一代是第 {best_gen + 1} 代')
+    print(f'评价次数：{myAlgorithm.evalsNum}')
+    print(f'时间已过 {myAlgorithm.passTime} 秒')
     # 绘图
     plt.figure()
     plt.plot(problem.places[best_journey.astype(int), 0], problem.places[best_journey.astype(int), 1], c = 'black')

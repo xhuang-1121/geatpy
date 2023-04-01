@@ -6,7 +6,7 @@ class TestProblem(ea.Problem): # 继承Problem父类
     def __init__(self, testName): # testName为测试集名称
         name = testName # 初始化name
         # 读取城市坐标数据
-        self.places=np.loadtxt("data/" + testName + ".csv",delimiter=",",usecols=(0,1))
+        self.places = np.loadtxt(f"data/{testName}.csv", delimiter=",", usecols=(0,1))
         M = 1 # 初始化M（目标维数）
         Dim = self.places.shape[0] # 初始化Dim（决策变量维数）
         maxormins = [1] * M # 初始化maxormins（目标最小最大化标记列表，1：最小化该目标；-1：最大化该目标）
